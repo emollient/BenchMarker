@@ -25,8 +25,9 @@ def main(argv):
         subprocess.call(curr_dir+"/"+exece, shell=True)
         times.update({exece: time.clock() - start})
 
-    #things are mutable and it confused me
-    times = json.dumps(times)
+
+    with open("json" , "w") as file:
+        json.dumps(times, file, index=4)
 
 
     subprocess.call(curr_dir+"/"+"benchmarker.R", shell=True)
