@@ -22,15 +22,17 @@ def main(argv):
     curr_dir = os.getcwd()
     print(curr_dir)
     for exece in argv:
-        subprocess.call(curr_dir+"/"+exece, shell=True)
-        times.update({exece: time.clock() - start})
+        times.update({exece: []})
+        for i in range(0, 30):
+            subprocess.call("source "+curr_dir+"/"+exece, shell=True)
+            times[exece].append(time.clock() - start)
+
+    with open("json.txt" , "w") as file:
+        json.dump(times, file)
 
 
-    with open("json" , "w") as file:
-        json.dumps(times, file, index=4)
-
-
-    subprocess.call(curr_dir+"/"+"benchmarker.R", shell=True)
+    subprocess.call("R -f "+ curr_dir+"/"+"benchmarker.R", shell=True)
+    #subprocess.call("rm json.txt", shell=True)
 
 if __name__ == "__main__" :
     main(sys.argv)
