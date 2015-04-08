@@ -31,8 +31,12 @@ def main(argv):
         json.dump(times, file)
 
 
-    subprocess.call("R -f "+ curr_dir+"/"+"benchmarker.R", shell=True)
-    #subprocess.call("rm json.txt", shell=True)
+
+    if(len(argv) <= 2):
+        subprocess.call("R -f "+ curr_dir+"/"+"benchmarkerTtest.R", shell=True)
+    else:
+        subprocess.call("R -f "+ curr_dir+"/"+"benchmarkerAnova.R", shell=True)
+    subprocess.call("rm json.txt", shell=True)
 
 if __name__ == "__main__" :
     main(sys.argv)
