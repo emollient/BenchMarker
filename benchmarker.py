@@ -13,6 +13,21 @@ import json
 
 #sem = BoundedSemaphore
 
+def program_args(exece):
+    yes = set(['yes', 'y', 'ye'])
+    no = set(['no', 'n', ''])
+    sys.stdout.write("Does %s require command-line arguments? [y/n] " % exece)
+    yes_no = raw_input().lower()
+    print( yes_no)
+    if yes_no in no:
+        return " "
+    elif yes_no in yes:
+        sys.stdout.write("Enter the command line arguments for %s: " % (exece))
+        args = raw_input().lower()
+        return " "+ args
+    else:
+        return program_args(exece)
+
 
 #todo implement ability to run flags and thread
 def main(argv):
@@ -22,9 +37,10 @@ def main(argv):
     curr_dir = os.getcwd()
     print(curr_dir)
     for exece in argv:
+        args = program_args(exece)
         times.update({exece: []})
         for i in range(0, 30):
-            subprocess.call("source "+curr_dir+"/"+exece, shell=True)
+            subprocess.call("./"+curr_dir+"/"+exece + args, shell=True)
             times[exece].append(time.clock() - start)
 
     with open("json.txt" , "w") as file:
