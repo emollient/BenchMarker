@@ -63,11 +63,12 @@ def main(argv):
     argv = program_args(argv[1:])
     stats = aggregate(argv)
     curr_dir = os.getcwd()
+    print stats
 
     with open("json.json" , "w") as file:
         json.dump(stats, file)
 
-    subprocess.call("R -f " + curr_dir+"/"+"benchmarkerTtest.R",shell=True)
+    subprocess.call("R -f " + curr_dir+"/"+"benchmarkerBoot.R",shell=True)
 
 
     #if(len(argv) <= 2):
