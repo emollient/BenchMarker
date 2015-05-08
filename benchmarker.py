@@ -16,6 +16,9 @@ import numpy
 
 #returns a dict key = exec val = args
 def program_args(args):
+    if(len(args) == 0 or args[0] != "-exec"):
+        print("Usage: -exec foo1 -args arg1 arg2")
+        sys.exit()
     execs = {}
     for i in range(len(args)-1):
         if args[i] == "-exec":
