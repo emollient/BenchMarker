@@ -3,10 +3,7 @@
 
 library(jsonlite)
 
-data1 <- fromJSON(paste(getwd(), "json.txt", sep="/")) 
+data1 <- fromJSON(paste(getwd(), "json.json", sep="/")) 
 
-out <- lapply(data1, str_length)
-data1 <- cbind(data1, out)
-
-
-#summary(fit)
+boxplot(data1, col=c("lightblue","lightgreen"))
+stripchart(data=data1,vertical=T,pch=16,method="jitter",cex=0.5,add=T)

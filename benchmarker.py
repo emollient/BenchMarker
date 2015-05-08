@@ -42,6 +42,7 @@ def aggregate(args):
     data = {}
     times = {}
 
+
     for exece in args:
         for i in range(0,30):
             times.update({i:[]})
@@ -63,12 +64,11 @@ def main(argv):
     argv = program_args(argv[1:])
     stats = aggregate(argv)
     curr_dir = os.getcwd()
-    print stats
 
     with open("json.json" , "w") as file:
         json.dump(stats, file)
 
-    subprocess.call("R -f " + curr_dir+"/"+"benchmarkerBoot.R",shell=True)
+    subprocess.call("Rscript " + curr_dir+"/"+"benchmarkerANOVA.R",shell=True)
 
 
     #if(len(argv) <= 2):
