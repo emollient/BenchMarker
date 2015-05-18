@@ -30,6 +30,8 @@ python benchmarker.py -exec foo1 -exec foo2 -arg foo2arg -arg foo2arg1
 ```
 
 
-![graphs](Rplots.pdf)
+<object data="Rplots.pdf" type="application/pdf" width="300" height="500">
+  alt : <a href="Rplots.pdf">Graphs</a>
+</object>
 
 
