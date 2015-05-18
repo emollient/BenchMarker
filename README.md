@@ -16,3 +16,20 @@ It is used to determine if two sets of data are significantly different from one
 #### ANOVA test
 ANOVA is similar to t-tests, but is used to find variance among means of greater than two
 datasets.
+
+
+
+##Installation
+```
+pip install -r requirements.txt
+```
+
+##Command line args
+```
+python benchmarker.py -exec foo1 -exec foo2 -arg foo2arg -arg foo2arg1
+```
+
+
+![graphs](Rplots.pdf)
+
+

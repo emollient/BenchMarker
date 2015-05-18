@@ -42,24 +42,17 @@ returns {exec: mean}
 """
 def aggregate(args):
     curr_dir = os.getcwd()
-    data = {}
     times = {}
 
-
     for exece in args:
-        for i in range(0,30):
-            times.update({i:[]})
-            for j in range(0,30):
-                start = time.clock()
-                subprocess.call("source "+curr_dir+"/"+exece+" "+args.get(exece)+ " > /dev/null 2>&1" , shell=True)
-                times[i].append(time.clock()-start)
+        times[exece] = []
+        for i in range(0,900):
+            start = time.clock()
+            subprocess.call("source "+curr_dir+"/"+exece+" "+args.get(exece)+ " > /dev/null 2>&1" , shell=True)
+            times[exece].append(time.clock()-start)
 
-        data.update({exece:[]})
-        for stat, stats in times.iteritems():
-            data[exece].append(numpy.mean(stats))
-        times = {}
 
-    return data
+    return times
 
 
 #todo implement ability to run flags and thread
@@ -71,14 +64,13 @@ def main(argv):
     with open("json.json" , "w") as file:
         json.dump(stats, file)
 
-    subprocess.call("Rscript " + curr_dir+"/"+"benchmarkerANOVA.R",shell=True)
 
 
-    #if(len(argv) <= 2):
-    #    subprocess.call("R -f "+ curr_dir+"/"+"benchmarkerTtest.R", shell=True)
-    #else:
-    #    subprocess.call("R -f "+ curr_dir+"/"+"benchmarkerANOVA.R", shell=True)
-    subprocess.call("rm json.json", shell=True)
+    if(len(argv) <= 2):
+        subprocess.call("R -f "+ curr_dir+"/"+"benchmarkerTtest.R", shell=True)
+    else:
+        subprocess.call("R -f "+ curr_dir+"/"+"benchmarkerANOVA.R", shell=True)
+    #subprocess.call("rm json.json", shell=True)
 
 if __name__ == "__main__" :
     main(sys.argv)
